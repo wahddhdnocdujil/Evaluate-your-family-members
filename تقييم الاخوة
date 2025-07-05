@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>تقييم الإخوة</title>
+<style>
+  body {
+    font-family: sans-serif;
+    direction: rtl;
+    text-align: center;
+    background: #f7f7f7;
+    padding: 20px;
+  }
+  h2 {
+    margin-top: 20px;
+  }
+  .stars {
+    cursor: pointer;
+    font-size: 2em;
+    color: gray;
+  }
+  .stars.selected {
+    color: gold;
+  }
+  .message {
+    margin-top: 10px;
+    color: green;
+    font-weight: bold;
+  }
+</style>
+</head>
+<body>
+<h1>⭐ قيم إخوتك ⭐</h1>
+
+<div id="siblings">
+  <div>
+    <h2>الأخ الكبير</h2>
+    <div class="rating" data-name="الأخ الكبير"></div>
+    <div class="message" id="msg-الأخ الكبير"></div>
+  </div>
+  <div>
+    <h2>الأخ الوسطاني</h2>
+    <div class="rating" data-name="الأخ الوسطاني"></div>
+    <div class="message" id="msg-الأخ الوسطاني"></div>
+  </div>
+  <div>
+    <h2>الأخ الصغير</h2>
+    <div class="rating" data-name="الأخ الصغير"></div>
+    <div class="message" id="msg-الأخ الصغير"></div>
+  </div>
+  <div>
+    <h2>الأخت الكبيرة</h2>
+    <div class="rating" data-name="الأخت الكبيرة"></div>
+    <div class="message" id="msg-الأخت الكبيرة"></div>
+  </div>
+  <div>
+    <h2>الأخت الصغيرة</h2>
+    <div class="rating" data-name="الأخت الصغيرة"></div>
+    <div class="message" id="msg-الأخت الصغيرة"></div>
+  </div>
+</div>
+
+<script>
+  document.querySelectorAll('.rating').forEach(container => {
+    const name = container.dataset.name;
+    for(let i=1; i<=5; i++) {
+      const star = document.createElement('span');
+      star.innerHTML = '★';
+      star.classList.add('stars');
+      star.dataset.value = i;
+      star.addEventListener('click', () => {
+        rate(name, i);
+      });
+      container.appendChild(star);
+    }
+  });
+
+  function rate(name, value) {
+    const stars = document.querySelectorAll(`.rating[data-name='${name}'] .stars`);
+    stars.forEach(star => {
+      star.classList.toggle('selected', star.dataset.value <= value);
+    });
+    document.getElementById(`msg-${name}`).textContent = `لقد قيّمت ${name} بـ ${value} نجمة 🌟`;
+  }
+</script>
+</body>
+</html>
